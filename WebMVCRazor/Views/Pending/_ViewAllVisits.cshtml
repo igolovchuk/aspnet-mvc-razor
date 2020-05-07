@@ -1,0 +1,39 @@
+﻿@model WebMVCRazor.Models.OverdueVisitWrapperViewModel
+
+@{
+    if (Model.Visits.Any())
+    {
+        <hr />
+
+        var grid = new WebGrid(Model.Visits, canPage: true, defaultSort: "DueDate", canSort: false, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
+        @grid.Pager()
+        <div id="webGrid">
+            @grid.GetHtml(tableStyle: "webGrid",
+                headerStyle: "header",
+                selectedRowStyle: "select",
+                columns: grid.Columns(
+                  grid.Column("Patient", "Patient"),
+                  grid.Column("Provider", "Provider"),
+                  grid.Column("Location", "Location"),
+                  grid.Column("VisitType", "VisitType"),
+                  grid.Column("VisitDate", "VisitDate"),
+                  grid.Column("DueDate", "DueDate", format: (item) => string.Format("{0:M/d/yyyy}", item.DueDate)),
+                  grid.Column("OverdueDays", "OverdueDays", format: (item) =>
+       {
+           var css = @"class='overdue'";
+           if (item.OverdueDays < 0)
+           {
+               css = "";
+           }
+           return Html.Raw("<span " + css + ">" + @item.OverdueDays + "</span>");
+       })
+                                            ))
+
+        </div>
+    }
+    else
+    {
+    }
+}
+
+

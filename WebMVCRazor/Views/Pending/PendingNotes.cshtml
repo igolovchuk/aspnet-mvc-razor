@@ -1,0 +1,33 @@
+﻿@model WebMVCRazor.Models.OverdueVisitWrapperViewModel
+@{
+    ViewBag.Title = "Pending Notes";
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/RedRows")
+    @Styles.Render("~/Content/GridCss")
+}
+<br />
+<div class="spacerBody">
+    @using (Html.BeginForm("Pending", "Pending", FormMethod.Get))
+    {
+        <br />
+        <br />
+        <div class="breadcrumb" style="width: 1060px;">
+
+            Patient :   @Html.DropDownListFor(m => m.Patients, Model.Patients, "All")
+
+            Provider :  @Html.DropDownListFor(m => m.Providers, Model.Providers, "All")
+
+            Facility :  @Html.DropDownListFor(m => m.Facilities, Model.Facilities, "All")
+
+            &nbsp;&nbsp;<input type="submit" value="Search" />
+        </div>
+    }
+    <h3>@ViewBag.Title</h3>   
+     
+    @Html.Partial("_ViewAllVisits", Model)
+
+</div>
+
+

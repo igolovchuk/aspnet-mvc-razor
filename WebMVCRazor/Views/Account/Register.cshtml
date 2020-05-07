@@ -1,0 +1,33 @@
+﻿@model WebMVCRazor.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Create a new account";
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery");
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+{
+    @Html.AntiForgeryToken()
+    <h3>@ViewBag.Title</h3>
+    <hr />    
+    @Html.EditorFor(m => m.UserName)
+    @Html.EditorFor(m => m.FirstName)
+    @Html.EditorFor(m => m.MiddleName)
+    @Html.EditorFor(m => m.LastName)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    @Html.EditorFor(m => m.Password)
+    @Html.EditorFor(m => m.ConfirmPassword)
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Register" />            
+            @Html.ActionLink("Cancel", "Login", "Account", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+}

@@ -1,0 +1,61 @@
+﻿@model WebMVCRazor.Models.EditClerkViewModel
+@{
+    ViewBag.Title = "Edit Clerk";
+}
+@section Scripts {
+   @Scripts.Render("~/bundles/jquery");
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/Scripts/bootstrap")
+}
+@using (Html.BeginForm("EditClerk", "Clerk", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+   @Html.AntiForgeryToken()<br />
+    @Html.ValidationSummary(true)
+    <div class="message-error">@ViewBag.Error</div>
+
+    <div class="form-horizontal">
+        <h3>@ViewBag.Title</h3>
+        <hr />      
+        <h2>@ViewBag.Message</h2>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.UserId, new { @class = "form-control", autocomplete = "off" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @readonly = "readonly", autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.UserName)
+            </div>
+        </div>
+
+        @Html.EditorFor(m => m.FirstName)
+        @Html.EditorFor(m => m.MiddleName)
+        @Html.EditorFor(m => m.LastName)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "help-block" })
+            </div>
+        </div>
+        
+        @Html.EditorFor(m => m.IsActive)     
+        @*@Html.EditorFor(m => m.OldPassword)*@
+        @Html.EditorFor(m => m.NewPassword)
+        @*@Html.EditorFor(m => m.ConfirmPassword)*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                @Html.ActionLink("Cancel", "Clerks", "Clerk", new { @class = "btn btn-primary" })
+                <span onclick=" return confirm('Are you really want to delete this Clerk?') ">
+                    @Html.ActionLink("Delete", "DeleteClerk", "Clerk", new { id = Model.UserId }, new { @class = "btn btn-primary" })
+                </span>
+            </div>
+        </div>
+    </div>
+}

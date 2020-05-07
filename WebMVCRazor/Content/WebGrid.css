@@ -1,0 +1,57 @@
+﻿/***
+*   
+*   This file contains default styles for Grid.Mvc.
+*/
+/* Grid */
+ 
+        .webGrid {
+            margin: 4px;
+            border-collapse: collapse;
+            width: auto;
+            background-color: #FCFCFC;
+        }
+
+        .header {
+            background-color: #C1D4E6;
+            font-weight: bold;
+            /*color: #FFF;*/
+        }
+
+        .webGrid th, .webGrid td {
+            border: 1px solid #C0C0C0;
+            padding: 5px;
+        }
+
+        .alt {
+            background-color: #E4E9F5;
+            color: #000;
+        }
+
+        .overdue {
+            background-color: red;
+            color: white;
+        }
+        .redRow {
+            background-color: red;
+            color: white;
+        }
+       
+        .gridHead a:hover {
+            text-decoration: underline;
+        }
+
+        .description {
+            width: auto;
+        }
+
+        .select {
+            background-color: #389DF5;
+        }
+   
+        .pager{
+            
+            width: 968px;
+            background-color: #FCFCFC;
+            text-decoration: underline;
+            border: 1px solid #C0C0C0;
+        }

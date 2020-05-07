@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<h3>@ViewBag.Title</h3>
+<h2>@ViewBag.Message</h2>
+
+<address>
+    One Microsoft Way<br />
+    Redmond, WA 98052-6399<br />
+    <abbr title="Phone">P:</abbr>
+    425.555.0100
+</address>
+
+<address>
+    <strong>Support:</strong>  @Html.ActionLink("Support@example.com", "mailto:Support@example.com")
+    <strong>Marketing:</strong> @Html.ActionLink("Marketing@example.com", "mailto:Marketing@example.com")
+</address>

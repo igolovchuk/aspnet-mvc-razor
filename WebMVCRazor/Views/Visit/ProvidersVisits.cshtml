@@ -1,0 +1,55 @@
+﻿@model WebMVCRazor.Models.VisitWrapperViewModel
+@{
+    ViewBag.Title = ViewBag.Title;
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/Content/GridCss")
+    @Styles.Render("~/Content/PrintStyles")
+}
+<p>&nbsp;</p>
+<div class="spacerBody">
+    @using (Html.BeginForm("ProvidersVisits", "Visit", FormMethod.Get))
+    {
+        <br />
+        <br />
+        <div class="breadcrumb" style="width: 650px;">
+            
+            Facility :  @Html.DropDownListFor(m => m.Facilities, Model.Facilities, "All")
+
+            &nbsp;&nbsp;Show Only Active : &nbsp;&nbsp;@Html.CheckBox("searchUnActive", false, new {@class = "checkbox-inline"})
+
+            &nbsp;&nbsp;<input type="submit" value="Search" />
+        </div>
+    }
+    <h3>@ViewBag.Title</h3>
+
+    <br />
+    @Html.ActionLink("Print", "#", "#", new {@class = "btn btn-primary", @onclick = "window.print(); return false;"})
+    <br />
+    @{
+        if (Model.Visits.Any())
+        {
+            <hr />
+
+            var grid = new WebGrid(Model.Visits, canPage: true, canSort: false, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
+            
+            <div style="margin-left: 10px">@grid.Pager()</div>
+        
+            <div id="gridContent">
+                @grid.GetHtml("webGrid", "header",
+                    alternatingRowStyle: "alt",
+                    selectedRowStyle: "select",
+                    columns: grid.Columns(
+                        grid.Column("VisitType", " VisitType"),
+                        grid.Column("VisitDate", " VisitDate"),
+                        grid.Column("PatientName", "Patient", style: "description"),
+                        grid.Column("IsNoteComplete", "IsNoteComplete")
+                        ))
+
+            </div>
+        }
+    }
+
+    <br /><div class="message-success">@ViewBag.ResultMessage</div>
+</div>

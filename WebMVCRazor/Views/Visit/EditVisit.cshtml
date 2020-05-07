@@ -1,0 +1,42 @@
+﻿@model WebMVCRazor.Models.EditVisitViewModel
+@{
+    ViewBag.Title = "Edit Visit";
+}
+@section Scripts {
+   @Scripts.Render("~/bundles/jquery");
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/Scripts/bootstrap")
+}
+<br />
+<h3>@ViewBag.Title</h3>
+<hr />   
+@using (Html.BeginForm("EditVisit", "Visit", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+{
+    @Html.AntiForgeryToken()
+    <div class="message-error">@ViewBag.Error</div>
+
+    <div class="form-horizontal">
+        
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.VisitId, new {@class = "form-control"})
+                @Html.HiddenFor(model => model.PatientId, new {@class = "form-control"})
+            </div>
+        </div>
+        @Html.EditorFor(m => m.IsNoteComplete)
+        @Html.EditorFor(m => m.VisitDate)
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                @Html.ActionLink("Cancel", "Visits", "Visit", new {id = Model.PatientId}, new {@class = "btn btn-primary"})
+                <span onclick=" return confirm('Are you really want to delete this Visit?') ">
+                    @Html.ActionLink("Delete", "DeleteVisit", "Visit", new { id = Model.VisitId, PatId = Model.PatientId }, new {@class = "btn btn-primary"})
+                </span>
+            </div>
+        </div>
+    </div>
+}

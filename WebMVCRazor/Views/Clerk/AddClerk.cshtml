@@ -1,0 +1,36 @@
+﻿@model WebMVCRazor.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Add Clerk";
+}
+@section Scripts {
+ @Scripts.Render("~/bundles/jquery");
+ @Scripts.Render("~/bundles/jqueryval")
+ @Scripts.Render("~/Scripts/bootstrap")
+}
+@using (Html.BeginForm("AddClerk", "Clerk", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+{
+    @Html.AntiForgeryToken()<br />
+    <h3>@ViewBag.Title</h3>
+    <hr />
+    @Html.ValidationSummary(true)
+    @Html.EditorFor(m => m.UserName)
+    @Html.EditorFor(m => m.FirstName)
+    @Html.EditorFor(m => m.MiddleName)
+    @Html.EditorFor(m => m.LastName)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-2"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Email, new {@class = "form-control", autocomplete = "off"})
+            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "help-block" })
+        </div>
+    </div>
+
+    @Html.EditorFor(m => m.Password)
+    @Html.EditorFor(m => m.ConfirmPassword)
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Create" />
+            @Html.ActionLink("Cancel", "Clerks", "Clerk", null, new {@class = "btn btn-primary"})
+        </div>
+    </div>
+}

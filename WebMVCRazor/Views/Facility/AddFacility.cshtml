@@ -1,0 +1,33 @@
+﻿@model WebMVCRazor.Models.FacilityViewModel
+@{
+    ViewBag.Title = "Add Facility";
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery");
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/bootstrap")
+}
+@using (Html.BeginForm("AddFacility", "Facility", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <h3>@ViewBag.Title</h3>
+    <hr />   
+    @Html.EditorFor(m => m.Name)
+    @Html.EditorFor(m => m.Address)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PhoneNumber, null, new { @class = "help-block" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Add" />
+            @Html.ActionLink("Cancel", "Facilities", "Facility", new {@class = "btn btn-primary"})
+        </div>
+    </div>
+}
